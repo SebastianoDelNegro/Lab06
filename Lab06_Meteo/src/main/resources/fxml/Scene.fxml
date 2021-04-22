@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.meteo.FXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.meteo.FXMLController">
    <top>
       <Label text="Lab6_Meteo" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -25,7 +24,7 @@
                <children>
                   <Label text="Mese">
                      <HBox.margin>
-                        <Insets left="20.0" right="20.0" />
+                        <Insets left="20.0" right="20.0" top="5.0" />
                      </HBox.margin>
                   </Label>
                   <ChoiceBox fx:id="boxMese" prefHeight="25.0" prefWidth="92.0" />
@@ -41,7 +40,10 @@
             </HBox>
             <HBox>
                <children>
-                  <Label text="Sequenza ottimale delle città" />
+                  <Label text="Sequenza ottimale delle città">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Label>
                   <Button fx:id="btnCalcola" mnemonicParsing="false" onAction="#doCalcolaSequenza" prefHeight="25.0" prefWidth="138.0" text="Calcola">
                      <HBox.margin>
                         <Insets left="20.0" />
