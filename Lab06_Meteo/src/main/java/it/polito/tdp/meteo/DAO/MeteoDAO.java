@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import it.polito.tdp.meteo.model.Citta;
 import it.polito.tdp.meteo.model.Rilevamento;
 
 public class MeteoDAO {
@@ -41,13 +42,36 @@ public class MeteoDAO {
 		}
 	}
 
-	public List<Rilevamento> getAllRilevamentiLocalitaMese(int mese, String localita) {
-
-		return null;
+	public List<Rilevamento> getAllRilevamentiLocalitaMese(int mese, Citta localita) {
+		List<Rilevamento> rilevamenti = new ArrayList<Rilevamento>();
+		String sql = "SELECT Localita, Data, Umidita "
+				+ "FROM situazione "
+				+ "WHERE localita= ? AND MONTH(DATA)= ?";
+		
+		try {
+			Connection conn = ConnectDB.getConnection();
+			PreparedStatement st = conn.prepareStatement(sql);
+			st.setString(1, localita.getNome());
+			st.setInt(2, mese);
+			ResultSet rs = st.executeQuery();
+			
+			while(rs.next()) {
+				Rilevamento r = new Rilevamento(rs.getString("Localita"), rs.getDate("Data"), rs.getInt("Umidita"));
+				rilevamenti.add(r);
+			}
+			conn.close();
+			return rilevamenti;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	
 	}
 	
 	
-	public Double umiditamedia(String citta, int mese) {
+	public Double umiditamedia(Citta citta, int mese) {
 		String sql = "SELECT  localita, AVG(Umidita) "
 				+ "FROM situazione "
 				+ "WHERE localita= ? AND MONTH(data)= ? ";
@@ -56,7 +80,7 @@ public class MeteoDAO {
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, citta);
+			st.setString(1, citta.getNome());
 			st.setInt(2, mese);
 			ResultSet rs = st.executeQuery();
 			
@@ -74,16 +98,17 @@ public class MeteoDAO {
 		}
 	}
 	
-	public List<String> tuttelecitta(){
+	public List<Citta> tuttelecitta(){
 		
 		String sql = "SELECT DISTINCT localita FROM situazione";
-		List<String> citta = new ArrayList<String>();
+		List<Citta> citta = new ArrayList<Citta>();
 		try {
 			Connection conn = ConnectDB.getConnection();
 			PreparedStatement st = conn.prepareStatement(sql);
 			ResultSet rs = st.executeQuery();
 			while(rs.next()) {
-				citta.add(rs.getString("localita"));
+				Citta c = new Citta(rs.getString("localita"));
+				citta.add(c);
 			}
 			
 			conn.close();

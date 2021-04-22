@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import it.polito.tdp.meteo.model.Citta;
 import it.polito.tdp.meteo.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -41,6 +42,19 @@ public class FXMLController {
 
     @FXML
     void doCalcolaSequenza(ActionEvent event) {
+    	txtResult.clear();
+    	int mese = boxMese.getValue();
+    	
+    	if(mese==0) {
+    		txtResult.setText("errore, scegliere un mese");
+    		return;
+    	}
+    	
+    	List<Citta> sequenza = modello.trovaSequenza(mese);
+    	for(Citta c : sequenza) {
+    		txtResult.appendText(c+"\n");
+    	}
+    	
 
     }
 
@@ -53,9 +67,9 @@ public class FXMLController {
     		txtResult.setText("errore, scegliere un mese");
     		return;
     	}
-    	Map<String,Double> umidita = modello.getUmiditaMedia(mese);
+    	Map<Citta,Double> umidita = modello.getUmiditaMedia(mese);
     
-    	for(String s : umidita.keySet()) {
+    	for(Citta s : umidita.keySet()) {
     		txtResult.appendText(s + "  "+ umidita.get(s)+"\n");
     	}
     }
