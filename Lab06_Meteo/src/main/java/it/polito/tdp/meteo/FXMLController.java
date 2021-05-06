@@ -50,27 +50,22 @@ public class FXMLController {
     		return;
     	}
     	
-    	List<Citta> sequenza = modello.trovaSequenza(mese);
+    	List<Citta> sequenza = modello.result(mese);
     	for(Citta c : sequenza) {
     		txtResult.appendText(c+"\n");
     	}
-    	
 
     }
 
     @FXML
     void doCalcolaUmidita(ActionEvent event) {
     	txtResult.clear();
-    	int mese = boxMese.getValue();
+    	int mese =boxMese.getValue();
     	
-    	if(mese==0) {
-    		txtResult.setText("errore, scegliere un mese");
-    		return;
-    	}
-    	Map<Citta,Double> umidita = modello.getUmiditaMedia(mese);
-    
-    	for(Citta s : umidita.keySet()) {
-    		txtResult.appendText(s + "  "+ umidita.get(s)+"\n");
+    	Map<Citta,Double> mappa = modello.getUmiditaMedia(mese);
+    	
+    	for(Citta c : mappa.keySet()) {
+    		txtResult.appendText(c.getNome()+" umidita media: "+mappa.get(c));
     	}
     }
 

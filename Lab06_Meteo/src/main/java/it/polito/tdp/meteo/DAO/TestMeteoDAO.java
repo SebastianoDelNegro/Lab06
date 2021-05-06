@@ -2,6 +2,7 @@ package it.polito.tdp.meteo.DAO;
 
 import java.util.List;
 
+import it.polito.tdp.meteo.model.Citta;
 import it.polito.tdp.meteo.model.Rilevamento;
 
 public class TestMeteoDAO {
@@ -26,7 +27,9 @@ public class TestMeteoDAO {
 //		System.out.println(dao.getAllRilevamentiLocalitaMese(5, "Torino"));
 //		System.out.println(dao.getAvgRilevamentiLocalitaMese(5, "Torino"));
 		
-		System.out.println(dao.tuttelecitta());
+		//System.out.println(dao.tuttelecitta());
+		//System.out.println(dao.getAllRilevamentiLocalitaMese(3,new Citta("Genova")));
+
 	}
 
 }
